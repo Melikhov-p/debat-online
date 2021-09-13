@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 mt-3">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                        КНОПКА
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-8 mt-3 border-content">
+                <div class="container g-3">
+                    <div class="row" style="border-bottom: 1px solid rgba(39,41,43,0.1);">
+                        <div class="col-sm g-0" style="border-right: 1px solid rgba(39,41,43,0.1);">
+                            Тема: {{ debats.theme }}<br>
+                            Тезис: {{ debats.thesis }}
+                        </div>
+                        <div class="col-sm">
+                            Пользователь 1 VS Пользователь 2
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm g-0 mt-3">
+                            СООБЩЕНИЯ
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% for theme in themes %}
+            <div class="col-md-4 mt-2">
+            <div class="card">
+                <div class="card-body">
+                    {{ theme.name }}
+                </div>
+            </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

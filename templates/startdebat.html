@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form style="padding-left: 28%" method="POST" action="{% url 'startdebat' %}">
+        {% csrf_token %}
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="input-group mb-3">
+                        <select class="form-select" aria-label="Default select example" name="theme-id">
+                            <option selected>Выбор темы</option>
+                            {% for theme in themes %}
+                                <option value="{{ theme.id }}">{{ theme.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text">Тезис</span>
+                        {{ form.thesis }}
+                    </div>
+                    <div align="center">
+                        <button type="submit" class="btn btn-outline-dark btn-lg mt-3">Начать дебаты</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
