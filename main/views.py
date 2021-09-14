@@ -40,7 +40,7 @@ class DebatByTheme(ListView):
     template_name = 'index.html'
     context_object_name = 'Debats'
     extra_context = {
-        'themes': Theme.objects.all(),
+        'themes': Theme.objects.all().order_by('-rating'),
     }
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -63,7 +63,7 @@ class StartDebat(CreateView):
         form = StartDebatForm(request.POST)
         if form.is_valid():
             form.cleaned_data['theme_id'] = request.POST.get('theme-id')
-            Debat.objects.create(**form.cleaned_data)
+            Debat.objects.create(**form.cleaned_data).members.add(request.user.id)
             print(form.cleaned_data)
             return redirect('main')
 

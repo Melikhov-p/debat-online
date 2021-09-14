@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 
 class Theme(models.Model):
@@ -17,6 +18,7 @@ class Theme(models.Model):
 class Debat(models.Model):
     theme = models.ForeignKey(Theme, on_delete=models.CASCADE, verbose_name='Тема')
     thesis = models.CharField(verbose_name='Тезис', max_length=150)
+    members = models.ManyToManyField(User, related_name='User', verbose_name='Участники')
 
     def __str__(self):
         return self.theme.name
