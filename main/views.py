@@ -33,6 +33,9 @@ def offer_theme(request):
             print(form.cleaned_data)
             return redirect('main')
 
+def delete_debat(request, debat_id):
+    Debat.objects.get(id=debat_id).delete()
+    return redirect('main')
 
 class DebatByTheme(ListView):
     paginate_by = 4

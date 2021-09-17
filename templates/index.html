@@ -5,11 +5,11 @@
             <div class="col-md-2 mt-3">
                 <div class="d-grid mx-auto">
                 <button class="btn btn-outline-primary" type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop">Предложить тему
+                        data-bs-target="#staticBackdropTheme">Предложить тему
                 </button>
                 </div>
                 <!-- MODAL -->
-                <div class="modal fade" id="staticBackdrop"
+                <div class="modal fade" id="staticBackdropTheme"
                      data-bs-backdrop="static"
                      data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                      aria-hidden="true">
@@ -56,7 +56,11 @@
             <div class="col-md-8">
                 {% for debat in page_obj.object_list %}
                 <div class="card mt-3">
-                    <h5 class="card-header">Тема: "{{ debat.theme }}"</h5>
+                    <h5 class="card-header">Тема: "{{ debat.theme }}"
+                        {% if request.user.is_superuser %}
+                        <a href="{% url 'delete_debat' debat.id %}" class="btn btn-outline-danger">Удалить</a>
+                        {% endif %}
+                    </h5>
                     <div class="card-body">
                         <h5 class="card-title">Оппонент: {{ debat.members.all.0 }}</h5>
                         <p class="card-text">Тезис: "{{ debat.thesis }}"</p>
