@@ -25,6 +25,7 @@ class HomeDebat(ListView):
         return context
 
 
+
 def offer_theme(request):
     if request.method == 'POST':
         form = ThemeForm(request.POST)
@@ -84,6 +85,9 @@ class DebatPage(ListView):
     def get_queryset(self):
         return Debat.objects.get(id=self.kwargs['debat_id'])
 
+def add_opponent(request, debat_id):
+    Debat.objects.get(id=debat_id).members.add(request.user.id)
+    return redirect('debat_page', debat_id)
 
 def user_login(request):
     if request.method == 'POST':

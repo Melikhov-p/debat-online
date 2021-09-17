@@ -13,4 +13,5 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('all_themes/', all_themes, name='all_themes'),
     path('delete_debat/<int:debat_id>', delete_debat, name='delete_debat'),
+    path('add_opponent/<int:debat_id>', add_opponent, name='add_opponent'),
 ]

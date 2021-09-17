@@ -64,7 +64,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Оппонент: {{ debat.members.all.0 }}</h5>
                         <p class="card-text">Тезис: "{{ debat.thesis }}"</p>
-                        <a href="{% url 'debat_page' debat.id%}" class="btn btn-primary">Вступить в дебаты</a>
+                        <a href="{% url 'debat_page' debat.id%}" class="btn btn-primary {% if debat.members.count == 2 %} disabled {% endif %}" >Вступить в дебаты</a>
                     </div>
                 </div>
                 {% endfor %}
