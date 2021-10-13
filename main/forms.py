@@ -19,6 +19,14 @@ class StartDebatForm(forms.ModelForm):
             'thesis': forms.TextInput(attrs={'class':'form-control'}),
         }
 
+class DebatEditForm(forms.ModelForm):
+    class Meta:
+        model = Debat
+        fields = ['thesis']
+        widgets = {
+            'thesis': forms.TextInput(attrs={'class': 'form-control', 'name':'thesis'}),
+        }
+
 class UserRegisterForm(UserCreationForm):
     username = forms.CharField(label='Имя пользователя', widget=forms.TextInput(attrs={'class':'form-control'}))
     email = forms.CharField(label='Email',  widget=forms.EmailInput(attrs={'class':'form-control'}))

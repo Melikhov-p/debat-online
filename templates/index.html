@@ -58,13 +58,14 @@
                 <div class="card mt-3">
                     <h5 class="card-header">Тема: "{{ debat.theme }}"
                         {% if request.user.is_superuser %}
+                        <a href="{% url 'edit_debat' debat.pk %}" class="btn btn-outline-primary">Редактировать</a>
                         <a href="{% url 'delete_debat' debat.id %}" class="btn btn-outline-danger">Удалить</a>
                         {% endif %}
                     </h5>
                     <div class="card-body">
                         <h5 class="card-title">Оппонент: {{ debat.members.all.0 }}</h5>
                         <p class="card-text">Тезис: "{{ debat.thesis }}"</p>
-                        <a href="{% url 'debat_page' debat.id%}" class="btn btn-primary {% if debat.members.count == 2 %} disabled {% endif %}" >Вступить в дебаты</a>
+                        <a {% if request.user.is_authenticated %} href="{% url 'debat_page' debat.id%}" {% else %} href="{% url 'login' %}" {% endif %} class="btn btn-primary {% if debat.members.count == 2 %} disabled {% endif %}" >Вступить в дебаты</a>
                     </div>
                 </div>
                 {% endfor %}

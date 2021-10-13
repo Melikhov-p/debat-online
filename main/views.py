@@ -1,5 +1,6 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, CreateView, View, DetailView
+from django.views.generic import ListView, CreateView, UpdateView
 from django.urls import reverse
 from .forms import *
 from .models import *
@@ -31,12 +32,53 @@ def offer_theme(request):
         form = ThemeForm(request.POST)
         if form.is_valid():
             Theme.objects.create(**form.cleaned_data)
-            print(form.cleaned_data)
             return redirect('main')
 
 def delete_debat(request, debat_id):
-    Debat.objects.get(id=debat_id).delete()
-    return redirect('main')
+    if request.user.is_superuser:
+        Debat.objects.get(id=debat_id).delete()
+        return redirect('main')
+    else:
+        return redirect('login')
+
+def edit_debat(request, debat_id):
+    debat = Debat.objects.get(id=debat_id)
+    if request.method == 'GET':
+        context = {
+            'form': DebatEditForm(data={'theme': debat.theme.name, 'thesis': debat.thesis}),
+            'debat':debat,
+            'themes':Theme.objects.all(),
+        }
+        return render(request, 'edit_debat.html', context)
+    if request.method == 'POST':
+        if request.user.is_superuser:
+            form = DebatEditForm(request.POST)
+            if form.is_valid():
+                print(request.POST.get('theme-id'))
+                debat.theme_id = request.POST.get('theme-id')
+                debat.thesis = request.POST.get('thesis')
+                debat.save()
+                return redirect('main')
+        else:
+            return redirect('login')
+
+# class DebatEdit(UpdateView):
+#     model = Debat
+#     template_name = 'edit_debat.html'
+#     context_object_name = 'debat'
+#     form_class = DebatEditForm
+#     pk_url_kwarg = 'debat_id'
+#     extra_context = {
+#         'themes': Theme.objects.all(),
+#     }
+#
+#     def post(self, request, *args, **kwargs):
+#         form = DebatEditForm(request.POST)
+#         print(Debat.thesis)
+#         if form.is_valid():
+#             Debat.theme_id = request.POST.get('theme')
+#             Debat.thesis = request.POST.get('thesis')
+#             return redirect('main')
 
 class DebatByTheme(ListView):
     paginate_by = 4

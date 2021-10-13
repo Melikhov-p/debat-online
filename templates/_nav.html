@@ -3,7 +3,7 @@
         <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
             <div class="btn-group" role="group" aria-label="Basic outlined example">
                 <a class="btn btn-outline-primary" href="{% url 'main' %}">Главная</a>
-                <a class="btn btn-outline-primary" href="{% url 'startdebat' %}">DEBAT</a>
+                <a class="btn btn-outline-primary" {% if request.user.is_authenticated %} href="{% url 'startdebat' %}" {% else %} href="{% url 'login' %}" {% endif %}>DEBAT</a>
                 <a class="btn btn-outline-primary" {% if request.user.is_authenticated %} data-bs-toggle="modal" data-bs-target="#staticBackdropAccount">{{ user.username }}</a>{% else %} href="{% url 'login' %}">Войти</a>{% endif %}
             </div>
         </div>
